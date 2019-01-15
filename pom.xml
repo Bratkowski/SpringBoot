@@ -11,8 +11,8 @@
 	<groupId>com.bratkowski</groupId>
 	<artifactId>book-libary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>book-libary</name>
-	<description>Demo project for Spring Boot</description>
+	<name>biblioteka</name>
+	<description>System zarządzania biblioteką w Springu</description>
 
 	<properties>
 		<java.version>1.8</java.version>
