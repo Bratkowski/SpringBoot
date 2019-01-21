@@ -1,20 +1,39 @@
 package com.bratkowski.booklibary.domain;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.util.Random;
 
-@Component
+@Entity
+//@Table(name = "book")
+//@Scope("prototype")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    //@Column(name = "bookTitle")
     private String title;
     private int year;
     private String publisher;
     private String isbn;
 
+    public Book(){
 
-    public Book() {
-        this.title = "ogniem i laserem";
-        this.year = 1976;
-        this.publisher = "Kurpis";
-        this.isbn = "AZ3422342";
+    }
+
+    public Book(String title, int year, String publisher, String isbn) {
+        this.title = title;
+        this.year = year;
+        this.publisher = publisher;
+        this.isbn = isbn;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
