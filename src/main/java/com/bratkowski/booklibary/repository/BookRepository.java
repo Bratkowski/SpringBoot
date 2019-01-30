@@ -28,4 +28,18 @@ public class BookRepository {
             em.persist(book);
     }
 
+    @Transactional
+    public void updateBook (Book book) {
+        if (book != null){
+            em.merge(book);
+        }
+    }
+
+    @Transactional
+    public void  deleteBook (Book book) {
+       if (book != null) {
+           em.remove(book);
+       }
+    }
+
 }
