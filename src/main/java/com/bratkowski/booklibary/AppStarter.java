@@ -1,5 +1,6 @@
 package com.bratkowski.booklibary;
 
+import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.repository.BookRepository;
 import com.bratkowski.booklibary.services.BookService;
@@ -40,10 +41,10 @@ public class AppStarter implements CommandLineRunner {
     }*/
 
     public void init () {
-        Book book = new Book("Ogniem i pierogiem",1865,"Zbigniew Zagłowa","ijojdasoi123","Dima Bohun");
+        Book book = new Book("Ogniem i pierogiem",1865,"Zbigniew Zagłowa","ijojdasoi123",new Author("Dima Bohun"));
         bookService.saveBook(book);
 
-        Book book2 = new Book("Ogniem i laserem",1345,"Zbigniew Zagłowa","ijojdasoi123","Dima Bohun");
+        Book book2 = new Book("Ogniem i laserem",1345,"Zbigniew Zagłowa","ijojdasoi123",new Author("Dima Bohun"));
         bookService.saveBook(book2);
     }
 }
