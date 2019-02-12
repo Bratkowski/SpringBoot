@@ -23,7 +23,7 @@ public class Book {
     private String title;
     @NotNull(message = "Rok wydania musi być z przedziału 1 - 9999")
     @Range(min=1, max = 9999, message = "Rok wydania musi być z przedziału 1 - 9999")
-    private int year;
+    private Integer year;
     @NotNull
     @Size(min=2, message = "Wydawca musi posiadać conajmniej 2 litery")
     private String publisher;
@@ -59,7 +59,7 @@ public class Book {
         return title;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
@@ -75,7 +75,7 @@ public class Book {
         this.title = title;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
