@@ -29,14 +29,17 @@
         <div class="form-group">
             <label class="control-label">Wydawca</label>
             <input type="text" class="form-control" th:field="*{publisher}"/>
+            <p th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"/>
         </div>
         <div class="form-group">
             <label class="control-label">ISBN</label>
             <input type="text" class="form-control" th:field="*{isbn}"/>
+            <p th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"/>
         </div>
         <div class="form-group">
             <label class="control-label">Autor</label>
             <input type="text" class="form-control" th:field="*{author.name}"/>
+            <p th:if="${#fields.hasErrors('author.name')}" th:errors="*{author.name}"/>
         </div>
 
         <div class="row">

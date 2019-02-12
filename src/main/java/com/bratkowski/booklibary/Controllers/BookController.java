@@ -1,7 +1,9 @@
 package com.bratkowski.booklibary.Controllers;
 
+import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.services.BookService;
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,7 @@ public class BookController {
         model.addAttribute("book", book);
         return "book";
     }
+
 
     @RequestMapping(value = "/books", method = RequestMethod.POST)
     public String saveBooks(@Valid Book book, BindingResult bindingResult){

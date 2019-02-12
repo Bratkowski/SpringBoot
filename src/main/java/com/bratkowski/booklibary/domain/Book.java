@@ -3,6 +3,7 @@ package com.bratkowski.booklibary.domain;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,10 +24,15 @@ public class Book {
     @NotNull(message = "Rok wydania musi być z przedziału 1 - 9999")
     @Range(min=1, max = 9999, message = "Rok wydania musi być z przedziału 1 - 9999")
     private int year;
+    @NotNull
+    @Size(min=2, message = "Wydawca musi posiadać conajmniej 2 litery")
     private String publisher;
+    @NotNull
+    @Size(min=5, message = "isbn usi posiadać conajmniej 5 znaków")
     private String isbn;
 
     @OneToOne
+    @Valid
     private Author author;
 
     public Book(){
