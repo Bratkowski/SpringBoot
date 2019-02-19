@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bratkowski.booklibary.domain.Book;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -51,5 +52,18 @@ public class BookService {
         return newBook;
     }
 
-    public Book getBook (int id){return bookRepository.getBook(id); }
+    public Book getBook (int id){
+        return bookRepository.getBook(id);
+    }
+
+    public List<Book> getBookByAuthor (String authorName) {
+        if(authorName != null){
+            return new ArrayList<>(bookRepository.getBooksByAuthor(authorName));
+        } else
+            return null;
+    }
+
+    public List<Book> getBooks(Integer year, String publisher, String isbn) {
+        return new ArrayList<>(bookRepository.getBooks(year,publisher,isbn));
+    }
 }
