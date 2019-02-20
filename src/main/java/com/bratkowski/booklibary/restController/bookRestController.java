@@ -102,6 +102,16 @@ public class bookRestController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/books/getByTitle", method = RequestMethod.GET)
+    public ResponseEntity<List<Book>> getBooksByTirle (@RequestParam(name = "title", required = true) String title){
+        List<Book> books = bookService.getBookByTitle(title);
+
+        if (books == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(books, HttpStatus.OK);
+    }
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<ExceptionDetails> exceptionHandler(MissingServletRequestParameterException ex) {
         ExceptionDetails exceptionDetails = new ExceptionDetails(ex.getClass().getSimpleName(), ex.getMessage());

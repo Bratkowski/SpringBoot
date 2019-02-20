@@ -46,5 +46,12 @@ public class AppStarter implements CommandLineRunner {
 
         Book book2 = new Book("Ogniem i laserem",1345,"Zbigniew Zagłowa","ijojdasoi123",new Author("Dima Bohun"));
         bookService.saveBook(book2);
+
+        Book book3 = new Book("Fizyka dla opornych",1345,"Kolegium Fizyków, Wróżbitów i Zbieraczy runa leśnego","ifsdfsd",new Author("Dr. reh. Ambroży Melchlor Brzezina"));
+        bookService.saveBook(book3);
+
+
+        Book book4 = new Book("Fizyka i jak z nią żyć",1345,"Wydawnictwo no i po co","ijojdasoi123",new Author("Kajetan Szymczak"));
+        bookService.saveBook(book4);
     }
 }
