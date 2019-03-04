@@ -2,8 +2,10 @@ package com.bratkowski.booklibary;
 
 import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
+import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.repository.BookRepository;
 import com.bratkowski.booklibary.services.BookService;
+import com.bratkowski.booklibary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,9 @@ public class AppStarter implements CommandLineRunner {
 
     BookService bookService;
 
+    @Autowired
+
+    UserService userService;
 
     /*@Autowired
     Book book;
@@ -33,6 +38,7 @@ public class AppStarter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         init();
+        initUser();
     }/*
 
     @Autowired
@@ -53,5 +59,17 @@ public class AppStarter implements CommandLineRunner {
 
         Book book4 = new Book("Fizyka i jak z nią żyć",1345,"Wydawnictwo no i po co","ijojdasoi123",new Author("Kajetan Szymczak"));
         bookService.saveBook(book4);
+    }
+
+    public void initUser(){
+        userService.createUser("admin","pass");
+
+        userService.addRoleToUser("admin","ADMIN");
+        userService.addRoleToUser("admin","DEV");
+        userService.addRoleToUser("admin","USER");
+
+        userService.createUser("user", "pass");
+
+        userService.addRoleToUser("user", "USER");
     }
 }
