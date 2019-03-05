@@ -34,8 +34,14 @@
             </tr>
             </tbody>
         </table>
-        <a th:href="${'/books/add'}">Dodaj książkę</a>
+        <div class="row">
+            <a th:href="${'/books/add'}">Dodaj książkę</a>
+        </div>
+            <div class="row">
+                <form action="#" th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-primary float-right">Wyloguj</button>
+                </form>
+            </div>
     </div>
-
 </body>
 </html>

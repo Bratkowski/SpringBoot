@@ -28,6 +28,11 @@ public class BookController {
         return "books";
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String redirectToMainPage (){
+        return "redirect:/books";
+    }
+
     @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.GET)
     public String deleteBook (@PathVariable("id") Integer id){
         bookService.deleteBook(id);

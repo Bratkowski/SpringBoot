@@ -41,7 +41,6 @@
             <input type="text" class="form-control" th:field="*{author.name}"/>
             <p th:if="${#fields.hasErrors('author.name')}" th:errors="*{author.name}"/>
         </div>
-
         <div class="row">
             <button type="submit" class="btn btn-primary float-left">Zatwierdź</button>
         </div>

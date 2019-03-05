@@ -4,6 +4,8 @@ import com.bratkowski.booklibary.domain.Role;
 import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,7 +21,8 @@ public class UserService {
             User user = userRepository.getUser(username);
 
             if(user == null) {
-                User newUser = new User(username, password);
+                PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+                User newUser = new User(username, pe.encode(password));
                 userRepository.addUser(newUser);
             }
         }
