@@ -20,24 +20,18 @@ public class UserService {
         if(username != null && password != null){
             User user = userRepository.getUser(username);
 
-            if(user == null) {
                 PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
                 User newUser = new User(username, pe.encode(password));
                 userRepository.addUser(newUser);
-            }
+
         }
     }
 
     @Transactional
     public void addRoleToUser(String username , String roleName){
         if(username != null && roleName != null) {
-            User user = userRepository.getUser(username);
-            System.out.println(">>>>>>>>>>>>>>>" + user.getRoles() == null);
-
-            if (user != null) {
-                Role role = new Role(roleName);
-                userRepository.addRoleToUser(user, role);
-            }
+            Role role = new Role(roleName);
+            userRepository.addRoleToUser(username, role);
         }
     }
 }

@@ -19,16 +19,25 @@ public class UserRepository {
     @Transactional
     public void addUser (User user){
         if(user != null)
-            em.persist(user);
+        {
+            boolean userExists = getUser(user.getUserName()) != null;
+
+            if(!userExists)
+                em.persist(user);
+        }
     }
 
     @Transactional
-    public void addRoleToUser (User user, Role  role){
-        if(user != null && role != null) {
-            user.addRole(role);
-            role.setUser(user);
-            em.persist(role);
-            em.merge(user);
+    public void addRoleToUser (String username, Role  role) {
+        if (username != null && role != null) {
+            User user = getUser(username);
+
+            if (user != null) {
+                user.addRole(role);
+                role.setUser(user);
+                em.persist(role);
+                em.merge(user);
+            }
         }
     }
 
