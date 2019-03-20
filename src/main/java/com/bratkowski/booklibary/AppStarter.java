@@ -5,6 +5,7 @@ import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.repository.BookRepository;
 import com.bratkowski.booklibary.services.BookService;
+import com.bratkowski.booklibary.services.HireService;
 import com.bratkowski.booklibary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,9 @@ public class AppStarter implements CommandLineRunner {
 
     UserService userService;
 
+    @Autowired
+    HireService hireService;
+
     /*@Autowired
     Book book;
 
@@ -37,8 +41,7 @@ public class AppStarter implements CommandLineRunner {
     */
     @Override
     public void run(String... args) throws Exception {
-        //init();
-        //initUser();
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + hireService.getHiresByBookId(4).size());
     }/*
 
     @Autowired

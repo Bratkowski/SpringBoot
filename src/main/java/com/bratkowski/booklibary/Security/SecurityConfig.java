@@ -31,7 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/books").hasAnyAuthority("ADMIN", "USER")
-                .anyRequest().authenticated().and().formLogin().defaultSuccessUrl("/books");
+                .anyRequest().authenticated()
+                .and().formLogin().defaultSuccessUrl("/books")
+                .and().httpBasic();
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/api").hasAnyAuthority("ADMIN", "DEV");

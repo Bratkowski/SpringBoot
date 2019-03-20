@@ -2,7 +2,9 @@ package com.bratkowski.booklibary.Controllers;
 
 import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
+import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.services.BookService;
+import com.bratkowski.booklibary.services.UserService;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +23,15 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getBooks(Model model){
         List<Book> books = bookService.getBooks();
+        User loggedUser = userService.getLoggedUser();
         model.addAttribute("books", books);
+        model.addAttribute("user", loggedUser);
         return "books";
     }
 
