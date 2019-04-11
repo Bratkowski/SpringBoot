@@ -1,8 +1,11 @@
 package com.bratkowski.booklibary.services;
 
+import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.Hire;
+import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.repository.BookRepository;
 import com.bratkowski.booklibary.repository.HireRepository;
+import com.bratkowski.booklibary.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -33,8 +36,33 @@ public class HireService {
         return hireRepository.findByHiredBook_Id(id);
     }
 
-    public void save(Integer bookId){
-        Hire hire = new Hire();
+    public Hire hire(Integer bookId){
+        boolean isBookAvailable = hireRepository.findByIdAndNotGiveBack(bookId).isEmpty();
+
+
+        if (isBookAvailable) {
+            Book book = bookRepository.getBook(bookId);
+            User user = userService.getLoggedUser();
+
+            if (book != null && user != null){
+                Hire hire = new Hire();
+                hire.setHiredBook(book);
+                hire.setHireUser(user);
+
+                Date hireDate = new Date();
+                Date plannedGiveBackDate = DateUtils.addDaysToDate(hireDate,giveBackDays );
+
+                hire.setHireDate(hireDate);
+                hire.setPlannedGiveBackDate(plannedGiveBackDate);
+
+                hireRepository.save(hire);
+                return hire;
+            }
+        }
+
+        return null;
+
+        /*Hire hire = new Hire();
         hire.setHiredBook(bookRepository.getBook(bookId));
         hire.setHireUser(userService.getLoggedUser());
         hire.setHireDate(new Date());
@@ -46,7 +74,7 @@ public class HireService {
 
         hire.setPlannedGiveBackDate(calendar.getTime());
 
-        hireRepository.save(hire);
+        hireRepository.hire(hire);*/
 
     }
 }

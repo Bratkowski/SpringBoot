@@ -2,19 +2,13 @@ package com.bratkowski.booklibary;
 
 import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
-import com.bratkowski.booklibary.domain.Hire;
-import com.bratkowski.booklibary.domain.User;
-import com.bratkowski.booklibary.repository.BookRepository;
 import com.bratkowski.booklibary.services.BookService;
 import com.bratkowski.booklibary.services.HireService;
 import com.bratkowski.booklibary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 
 @Component
@@ -45,7 +39,7 @@ public class AppStarter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        hireService.save(2);
+        hireService.hire(2);
     }/*
 
     @Autowired

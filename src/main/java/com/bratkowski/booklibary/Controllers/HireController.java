@@ -3,8 +3,10 @@ package com.bratkowski.booklibary.Controllers;
 
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.Hire;
+import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.services.BookService;
 import com.bratkowski.booklibary.services.HireService;
+import com.bratkowski.booklibary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,9 @@ public class HireController {
     @Autowired
     HireService hireService;
 
+    @Autowired
+    UserService userService;
+
 
     @RequestMapping (value = "/books/hires/{id}", method = RequestMethod.GET)
     public String getHires(Model model, @PathVariable("id") Integer id) {
@@ -34,13 +39,23 @@ public class HireController {
         model.addAttribute("hires", hires);
 
         return "hires";
-
     }
 
 
     @RequestMapping (value = "/books/hire/{id}", method = RequestMethod.GET)
-    public String hire (@PathVariable("id") Integer id){
-     hireService.save(id);
-     return "redirect:/books";
+    public String hire (Model model,@PathVariable("id") Integer id){
+        Hire hire = hireService.hire(id);
+        List<Book> books = bookService.getBooks();
+        User loggedUser = userService.getLoggedUser();
+        model.addAttribute("books", books);
+        model.addAttribute("user", loggedUser);
+        model.addAttribute("hireStatus", hire != null);
+
+        if (hire != null)
+            model.addAttribute("giveBackDate", hire.getPlannedGiveBackDate());
+
+        return "books";
     }
+
+
 }
