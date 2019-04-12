@@ -2,6 +2,7 @@ package com.bratkowski.booklibary.services;
 
 import com.bratkowski.booklibary.domain.Role;
 import com.bratkowski.booklibary.domain.User;
+import com.bratkowski.booklibary.dto.UserDto;
 import com.bratkowski.booklibary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -50,6 +51,17 @@ public class UserService {
             return getUser(username);
         } else
             return null;
+    }
+
+    public UserDto convert (User user) {
+        if(user == null)
+            return null;
+
+        UserDto userDto = new UserDto();
+        userDto.setUserName(user.getUserName());
+        userDto.setFullName(user.getFirstName() + ' ' +  user.getLastName());
+
+        return userDto;
     }
 }
 

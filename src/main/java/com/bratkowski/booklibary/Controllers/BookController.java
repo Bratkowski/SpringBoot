@@ -3,6 +3,8 @@ package com.bratkowski.booklibary.Controllers;
 import com.bratkowski.booklibary.domain.Author;
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.User;
+import com.bratkowski.booklibary.dto.BookDto;
+import com.bratkowski.booklibary.dto.UserDto;
 import com.bratkowski.booklibary.services.BookService;
 import com.bratkowski.booklibary.services.UserService;
 import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
@@ -28,8 +30,8 @@ public class BookController {
 
     @RequestMapping(value = "/books", method = RequestMethod.GET)
     public String getBooks(Model model){
-        List<Book> books = bookService.getBooks();
-        User loggedUser = userService.getLoggedUser();
+        List<BookDto> books = bookService.convert(bookService.getBooks());
+        UserDto loggedUser = userService.convert(userService.getLoggedUser());
         model.addAttribute("books", books);
         model.addAttribute("user", loggedUser);
         return "books";

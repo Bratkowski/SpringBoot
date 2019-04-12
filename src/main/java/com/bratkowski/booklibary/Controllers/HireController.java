@@ -4,6 +4,8 @@ package com.bratkowski.booklibary.Controllers;
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.Hire;
 import com.bratkowski.booklibary.domain.User;
+import com.bratkowski.booklibary.dto.BookDto;
+import com.bratkowski.booklibary.dto.UserDto;
 import com.bratkowski.booklibary.services.BookService;
 import com.bratkowski.booklibary.services.HireService;
 import com.bratkowski.booklibary.services.UserService;
@@ -45,8 +47,8 @@ public class HireController {
     @RequestMapping (value = "/books/hire/{id}", method = RequestMethod.GET)
     public String hire (Model model,@PathVariable("id") Integer id){
         Hire hire = hireService.hire(id);
-        List<Book> books = bookService.getBooks();
-        User loggedUser = userService.getLoggedUser();
+        List<BookDto> books = bookService.convert(bookService.getBooks());
+        UserDto loggedUser = userService.convert(userService.getLoggedUser());
         model.addAttribute("books", books);
         model.addAttribute("user", loggedUser);
         model.addAttribute("hireStatus", hire != null);
@@ -58,4 +60,10 @@ public class HireController {
     }
 
 
+    @RequestMapping (value = "/books/hires", method = RequestMethod.GET)
+    public String loggedUserHires () {
+        UserDto loggedUser = userService.convert(userService.getLoggedUser());
+        List <Hire> hires = hireService.getHireListById(userService.getLoggedUser().getId());
+        return "own-hires";
+    }
 }

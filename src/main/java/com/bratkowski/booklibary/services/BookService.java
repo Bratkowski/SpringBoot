@@ -1,14 +1,16 @@
 package com.bratkowski.booklibary.services;
 
 import com.bratkowski.booklibary.domain.Author;
+import com.bratkowski.booklibary.domain.Hire;
+import com.bratkowski.booklibary.dto.BookDto;
 import com.bratkowski.booklibary.repository.AuthorRepository;
 import com.bratkowski.booklibary.repository.BookRepository;
+import com.bratkowski.booklibary.repository.HireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bratkowski.booklibary.domain.Book;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -19,6 +21,9 @@ public class BookService {
 
     @Autowired
     AuthorRepository authorRepository;
+
+    @Autowired
+    HireRepository hireRepository;
 
     public List<Book> getBooks() {
         return new ArrayList<>(bookRepository.getBooks());
@@ -73,4 +78,37 @@ public class BookService {
             return null;
     }
 
+    public BookDto convert(Book book) {
+        if (book == null)
+            return null;
+
+        BookDto bookDto = new BookDto();
+        bookDto.setId(book.getId());
+        bookDto.setTitle(book.getTitle());
+        bookDto.setPublisher(book.getPublisher());
+        bookDto.setYear(book.getYear());
+        bookDto.setIsbn(book.getIsbn());
+
+        List<Hire> hires = hireRepository.findByIdAndNotGiveBack(book.getId());
+
+        bookDto.setHireStatus(hires.size() > 0);
+
+        if (hires.size() > 0)
+            bookDto.setGiveBackDate(hires.get(0).getPlannedGiveBackDate());
+
+        return bookDto;
+    }
+
+    public List<BookDto> convert (List<Book> books){
+        if (books == null)
+            return null;
+
+        List<BookDto> bookDtoList = new ArrayList<>();
+        for (Book book: books)
+            bookDtoList.add(convert(book));
+
+        return bookDtoList;
+
+
+    }
 }
