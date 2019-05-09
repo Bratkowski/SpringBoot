@@ -71,4 +71,36 @@ public class HireController {
 
         return "hires-own";
     }
+
+    @RequestMapping (value = "/admin/hires", method = RequestMethod.GET)
+    public String notGiveBackHires (Model model) {
+        User loggedUser = userService.getLoggedUser() ;
+        UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
+        List <Hire> hires = hireService.notGiveBackHireList();
+
+        model.addAttribute("user", loggedUserDto);
+        model.addAttribute("hires", hires);
+        model.addAttribute("showMessage",Boolean.FALSE);
+
+        return "hires-admin";
+    }
+
+    @RequestMapping (value = "/admin/hires/giveBack/{id}", method = RequestMethod.GET)
+    public String giveBack(Model model, @PathVariable("id") Long id){
+        User loggedUser = userService.getLoggedUser() ;
+        UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
+
+        hireService.setHireAsGiveBack(id);
+        String bookName = hireService.getHireById(id).getHiredBook().getTitle();
+        List <Hire> hires = hireService.notGiveBackHireList();
+
+
+        model.addAttribute("user", loggedUserDto);
+        model.addAttribute("hires", hires);
+        model.addAttribute("showMessage",Boolean.TRUE);
+        model.addAttribute("bookName", bookName);
+
+        return "hires-admin";
+
+    }
 }

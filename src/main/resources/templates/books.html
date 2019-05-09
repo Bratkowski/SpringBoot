@@ -19,7 +19,10 @@
     <div class="container">
         <div class="float-left">
             <a th:text="${'Witaj, ' + user.fullName + ' (' + user.userName + ')'}"></a>
+            <a> | </a>
             <a th:href="${'/user/hires'}">Profil użytkownika</a>
+            <a> | </a>
+            <a th:href="${'/admin/hires'}">Panel administratora</a>
         </div>
         <table class="table">
             <thead class="thead-dark">

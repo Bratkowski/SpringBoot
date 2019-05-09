@@ -28,18 +28,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure (HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/books").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/books/hires/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().defaultSuccessUrl("/books")
+                .and().exceptionHandling().accessDeniedPage("/acces-denied")
                 .and().httpBasic();
 
         httpSecurity.authorizeRequests()
                 .antMatchers("/api").hasAnyAuthority("ADMIN", "DEV");
 
-        httpSecurity.headers().frameOptions().disable();
-        httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
+        /*httpSecurity.headers().frameOptions().disable();
+        httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");*/
     }
 
     @Autowired
