@@ -4,6 +4,7 @@ import com.bratkowski.booklibary.domain.Role;
 import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.dto.UserDto;
 import com.bratkowski.booklibary.repository.UserRepository;
+import com.bratkowski.booklibary.repository.UserRepositoryJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,11 +14,15 @@ import org.springframework.stereotype.Service;
 import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserRepositoryJpa userRepositoryJpa;
 
     @Transactional
     public void createUser (String username, String password){
@@ -62,6 +67,10 @@ public class UserService {
         userDto.setFullName(user.getFirstName() + ' ' +  user.getLastName());
 
         return userDto;
+    }
+
+    public List<User> getAll () {
+        return userRepositoryJpa.findAll();
     }
 }
 

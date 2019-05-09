@@ -60,10 +60,15 @@ public class HireController {
     }
 
 
-    @RequestMapping (value = "/books/hires", method = RequestMethod.GET)
-    public String loggedUserHires () {
-        UserDto loggedUser = userService.convert(userService.getLoggedUser());
+    @RequestMapping (value = "/user/hires", method = RequestMethod.GET)
+    public String loggedUserHires (Model model) {
+        User loggedUser = userService.getLoggedUser() ;
+        UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
         List <Hire> hires = hireService.getHireListById(userService.getLoggedUser().getId());
-        return "own-hires";
+
+        model.addAttribute("user", loggedUserDto);
+        model.addAttribute("hires", hires);
+
+        return "hires-own";
     }
 }

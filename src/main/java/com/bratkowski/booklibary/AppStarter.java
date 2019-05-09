@@ -39,7 +39,6 @@ public class AppStarter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        hireService.hire(2);
     }/*
 
     @Autowired

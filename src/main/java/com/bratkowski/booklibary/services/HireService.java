@@ -79,6 +79,10 @@ public class HireService {
     }
 
     public List<Hire> getHireListById (Integer id){
-        return hireRepository.findByHireUserBy_Id(id);
+        return hireRepository.findByHireUser_Id(id);
+    }
+
+    public void setHireAsGiveBack (Long id ) {
+        hireRepository.setHireAsGiveBack(id);
     }
 }
