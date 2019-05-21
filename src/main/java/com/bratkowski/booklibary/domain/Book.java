@@ -33,7 +33,7 @@ public class Book {
     private String isbn;
 
     @OneToOne
-    @Valid
+    //@Valid
     private Author author;
 
     @OneToMany(mappedBy = "hiredBook", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
