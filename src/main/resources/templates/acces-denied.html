@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}" />
+
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
     <title>Odmowa dostępu</title>
 </head>
 <body>
-<div>
-    <a>Odmowa dostępu</a>
+<div class="container">
+    <div class="alert alert-danger" role="alert">
+        <center><a>Odmowa dostępu. Nie posiadasz wymaganych uprawnień. Wróć do katalogu książki</a></center>
+    </div>
+    <div>
+        <center><a th:href="${'/books'}" class="btn btn-primary" role="button">Powróć do katalog książki</a></center>
+    </div>
 </div>
-
 </body>
 </html>
