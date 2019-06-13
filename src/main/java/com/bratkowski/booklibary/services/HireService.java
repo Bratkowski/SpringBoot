@@ -36,13 +36,14 @@ public class HireService {
         return hireRepository.findByHiredBook_Id(id);
     }
 
-    public Hire hire(Integer bookId){
+    public Hire hire(Integer bookId, User user){
         boolean isBookAvailable = hireRepository.findByIdAndNotGiveBack(bookId).isEmpty();
 
 
         if (isBookAvailable) {
             Book book = bookRepository.getBook(bookId);
-            User user = userService.getLoggedUser();
+            //User user = userService.getLoggedUser();
+            
 
             if (book != null && user != null){
                 Hire hire = new Hire();

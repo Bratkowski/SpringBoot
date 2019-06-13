@@ -46,7 +46,8 @@ public class HireController {
 
     @RequestMapping (value = "/books/hire/{id}", method = RequestMethod.GET)
     public String hire (Model model,@PathVariable("id") Integer id){
-        Hire hire = hireService.hire(id);
+        //Hire hire = hireService.hire(id);
+        Hire hire = hireService.hire( id, userService.getLoggedUser());
         List<BookDto> books = bookService.convert(bookService.getBooks());
         UserDto loggedUser = userService.convert(userService.getLoggedUser());
         model.addAttribute("books", books);
