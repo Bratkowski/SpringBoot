@@ -3,11 +3,13 @@ package com.bratkowski.booklibary.Controllers;
 
 import com.bratkowski.booklibary.domain.Book;
 import com.bratkowski.booklibary.domain.Hire;
+import com.bratkowski.booklibary.domain.Payment;
 import com.bratkowski.booklibary.domain.User;
 import com.bratkowski.booklibary.dto.BookDto;
 import com.bratkowski.booklibary.dto.UserDto;
 import com.bratkowski.booklibary.services.BookService;
 import com.bratkowski.booklibary.services.HireService;
+import com.bratkowski.booklibary.services.PaymentService;
 import com.bratkowski.booklibary.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -29,6 +32,9 @@ public class HireController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PaymentService paymentService;
 
 
     @RequestMapping (value = "/books/hires/{id}", method = RequestMethod.GET)
@@ -66,9 +72,13 @@ public class HireController {
         User loggedUser = userService.getLoggedUser() ;
         UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
         List <Hire> hires = hireService.getHireListById(userService.getLoggedUser().getId());
+        BigDecimal payment = paymentService.getPaymentSumByUser(loggedUser.getId());
+        BigDecimal penalty = paymentService.getPenaltySumByUser(loggedUser.getId());
 
         model.addAttribute("user", loggedUserDto);
         model.addAttribute("hires", hires);
+        model.addAttribute("payment", payment);
+        model.addAttribute("penalty", penalty);
 
         return "hires-own";
     }

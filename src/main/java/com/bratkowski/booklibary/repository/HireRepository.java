@@ -39,4 +39,7 @@ public interface HireRepository extends JpaRepository<Hire, Long> {
     @Modifying
     @Query("UPDATE Hire SET realGiveBackDate = CURRENT_TIME WHERE id=:hireId AND realGiveBackDate IS NULL")
     void setHireAsGiveBack(@Param("hireId") Long id);
+
+    @Query("SELECT h FROM Hire h WHERE h.realGiveBackDate > h.plannedGiveBackDate AND h.realGiveBackDate IS NOT NULL AND h.hireUser.id=:id")
+    List<Hire> findExpiredHiresByUser (@Param("id") Integer id);
 }

@@ -14,6 +14,8 @@
 <div class="container">
     <div class="float-left">
         <p th:text="${'Wypożyczenia użytkownika: ' + user.fullName + ' (' + user.userName + ').'}"></p>
+        <p th:text="${'Suma wpłat: ' + #numbers.formatDecimal(payment, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN.'}"></p>
+        <p th:text="${'Naliczone opłaty: ' + #numbers.formatDecimal(penalty, 1, 'DEFAULT', 2, 'DEFAULT') + ' PLN.'}"></p>
     </div>
 
     <div class="text-right">
