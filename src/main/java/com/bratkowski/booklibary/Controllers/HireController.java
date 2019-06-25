@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HireController {
@@ -88,10 +89,12 @@ public class HireController {
         User loggedUser = userService.getLoggedUser() ;
         UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
         List <Hire> hires = hireService.notGiveBackHireList();
+        Map<User, BigDecimal> sanctionUsers = paymentService.getUserWithNegativeBalance();
 
         model.addAttribute("user", loggedUserDto);
         model.addAttribute("hires", hires);
-        model.addAttribute("showMessage",Boolean.FALSE);
+        model.addAttribute("showMessage","");
+        model.addAttribute("sanctionUsers", sanctionUsers);
 
         return "hires-admin";
     }
@@ -104,14 +107,37 @@ public class HireController {
         hireService.setHireAsGiveBack(id);
         String bookName = hireService.getHireById(id).getHiredBook().getTitle();
         List <Hire> hires = hireService.notGiveBackHireList();
+        Map<User, BigDecimal> sanctionUsers = paymentService.getUserWithNegativeBalance();
 
 
         model.addAttribute("user", loggedUserDto);
         model.addAttribute("hires", hires);
-        model.addAttribute("showMessage",Boolean.TRUE);
+        model.addAttribute("showMessage", "GIVEBACK");
         model.addAttribute("bookName", bookName);
+        model.addAttribute("sanctionUsers", sanctionUsers);
 
         return "hires-admin";
-
     }
+
+    @RequestMapping (value = "/admin/hires/pay/{id}", method = RequestMethod.GET)
+    public String pay(Model model, @PathVariable("id") Integer id){
+        User loggedUser = userService.getLoggedUser() ;
+        UserDto loggedUserDto = userService.convert(userService.getLoggedUser());
+
+        paymentService.pay(id);
+
+        List <Hire> hires = hireService.notGiveBackHireList();
+
+        Map<User, BigDecimal> sanctionUsers = paymentService.getUserWithNegativeBalance();
+
+
+        model.addAttribute("user", loggedUserDto);
+        model.addAttribute("hires", hires);
+        model.addAttribute("showMessage", "PAY");
+        model.addAttribute("sanctionUsers", sanctionUsers);
+
+        return "hires-admin";
+    }
+
+
 }
