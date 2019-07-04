@@ -1,18 +1,14 @@
 package com.bratkowski.booklibary.repository;
 
-import com.bratkowski.booklibary.domain.User;
+import com.bratkowski.booklibary.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Repository
-public interface UserRepositoryJpa extends JpaRepository<User,Integer> {
-
-    List<User> findAll();
+public interface RoleRepository  extends JpaRepository<Role, Integer> {
 
     @Transactional
-    User save(User user);
+    Role save (Role role);
 }
-

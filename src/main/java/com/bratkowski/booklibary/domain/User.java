@@ -2,6 +2,8 @@ package com.bratkowski.booklibary.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotNull (message = "Nazwa użytkownika nie może być pusta")
+    @Size(min=3, message = "Nazwa użytkownika musi posiadać conajmniej 3 litery")
     private String userName;
+
+    @NotNull (message = "Hasło nie może być puste")
+    @Size(min=4, message = "Hasło musi posiadać conajmniej 4 litery")
     private String password;
     private Boolean enabled;
     private String firstName;
